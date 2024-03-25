@@ -3,6 +3,7 @@ const cors = require("cors");
 const app = express();
 const port = process.env.PORT || 5000;
 const mongoose = require("mongoose");
+const productHandler = require("./products/products.routers");
 require("dotenv").config();
 
 app.use(express.json());
@@ -19,6 +20,14 @@ app.get("/", (req, res) => {
     message: "Welcome to BabyCare Server!",
   });
 });
+
+
+
+
+// APP API Call
+app.use("/api/v1/products", productHandler)
+
+
 
 app.listen(port, () => {
   console.log(`Server is Running on Port ${port}`);
