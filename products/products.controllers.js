@@ -33,3 +33,21 @@ exports.getAllProduct = async (req, res) => {
     });
   }
 };
+
+exports.getSingleProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await Product.findById(id);
+    res.status(200).json({
+      success: true,
+      message: "Single product retrieved successfully!",
+      data: result,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to retrieved single product",
+      error: error.message,
+    });
+  }
+};
