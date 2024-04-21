@@ -4,13 +4,14 @@ const app = express();
 const port = process.env.PORT || 5000;
 const mongoose = require("mongoose");
 const productHandler = require("./products/products.routers");
+const userHandler = require("./user/user.router");
 require("dotenv").config();
 
 app.use(express.json());
 app.use(cors());
 
 mongoose
-  .connect(process.env.DB_URL) 
+  .connect(process.env.DB_URL)
   .then(() => console.log(`BabyCare DB Connect Successfully!`))
   .catch((err) => console.log(err));
 
@@ -21,13 +22,9 @@ app.get("/", (req, res) => {
   });
 });
 
-
-
-
 // APP API Call
-app.use("/api/v1/products", productHandler)
-
-
+app.use("/api/v1/products", productHandler);
+app.use("/api/v1/auth", userHandler);
 
 app.listen(port, () => {
   console.log(`Server is Running on Port ${port}`);
